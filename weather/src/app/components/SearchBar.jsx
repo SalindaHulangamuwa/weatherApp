@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function SearchBar({ currentLocation, setCurrentLocation, setWeatherData, baseColor, setIsLoading, setActiveTab }) {
-  const apiKey = '5173cf403ee24371b3c102620251306';
+  const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+  console.log('API Key:', apiKey);
   const [isSearching, setIsSearching] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
 
