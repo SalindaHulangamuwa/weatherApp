@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 
 export default function SearchBar({ currentLocation, setCurrentLocation, setWeatherData, baseColor, setIsLoading, setActiveTab }) {
   const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-  console.log('API Key:', apiKey);
   const [isSearching, setIsSearching] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
 
