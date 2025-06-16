@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import SearchBar from './components/SearchBar'
 import WeatherDisplay from './components/WeatherDisplay'
 import MapView from './components/MapView'
+import WeatherChatbot from './components/WeatherChatbot'
 
 export default function Weather() {
   const [currentLocation, setCurrentLocation] = useState({
@@ -23,6 +24,8 @@ export default function Weather() {
     divide: 'divide-amber-200/30'
   })
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('result');
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const bg = {
     rainy: "https://media.istockphoto.com/id/512218646/photo/storm-sky-rain.jpg?s=612x612&w=0&k=20&c=RoUDM9BMwqW8NkPXjzAzlDKCHPOmdZhmmeT3jGA2EaM=",
@@ -92,8 +95,6 @@ export default function Weather() {
     }
   }, [weatherData])
 
-  const [activeTab, setActiveTab] = useState('result');
-
   const backgroundImageStyle = mounted
     ? {
         backgroundImage: `url(${bg[weatherCategory]})`,
@@ -111,15 +112,26 @@ export default function Weather() {
         <main className="container mx-auto px-4 h-screen w-full flex flex-col justify-center">
           <h1 className={`border-4 rounded-full mb-3 mt-2 ${baseColor.border} ${baseColor.shadow}`}></h1>
           <motion.div
-            className={`h-[94vh] overflow-hidden w-full rounded-2xl bg-white/0`}
+            className={`min-h-[94vh] overflow-auto w-full rounded-2xl bg-white/0`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
+            {/* Desktop Tabs */}
+            <div className="hidden lg:flex w-full mb-4 justify-center gap-4">
+              {/* Removed Weather and Map desktop tabs */}
+            </div>
+
             <div className={`flex flex-col lg:flex-row ${baseColor.divide}`}>
               {activeTab === "result" && (
-                <div className="lg:w-3/5 py-6 px-1 md:px-6 max-h-[93vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+                <div className="lg:w-3/5 py-6 px-1 md:px-6 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
                     <WeatherDisplay weatherData={weatherData} textColor={"text-white"} baseColor={baseColor} isLoading={isLoading} />
+                </div>
+              )}
+
+              {activeTab === "chat" && (
+                <div className="lg:w-3/5 py-6 px-1 md:px-6 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+                    <WeatherChatbot />
                 </div>
               )}
 
@@ -145,72 +157,114 @@ export default function Weather() {
                   setWeatherData={setWeatherData}
                 />
               </div>
-
             </div>
           </motion.div>
         </main>
       </div>
       
       {/* Mobile Navigation */}
-      <div className="z-20 fixed rounded-full m-2 flex bottom-0 right-0 p-1 lg:hidden">
-        {activeTab === "result" ? (
-            <motion.button 
-                onClick={() => setActiveTab("map")}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`
-                flex items-center justify-center 
-                px-4 py-1 mx-1 rounded-full
-                bg-gradient-to-b from-white/20 to-white/10
-                backdrop-blur-2xl
-                border border-white/30 border-b-white/40
-                shadow-[0_1px_2px_rgba(255,255,255,0.2)]
-                text-white font-medium
-                transition-all duration-300
-                relative overflow-hidden
-                group
-                `}
-            >
-                {/* Inner Glow */}
-                <div className={`
-                absolute inset-0 rounded-full
-                bg-gradient-to-r from-transparent via-white/20 to-transparent
-                opacity-0 group-hover:opacity-40
-                transition-opacity duration-300
-                pointer-events-none
-                `}></div>
-                Map
-            </motion.button>
-        ):(
-            <motion.button 
-                onClick={() => setActiveTab("result")}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`
-                flex items-center justify-center 
-                px-4 py-1 mx-1 rounded-full
-                bg-gradient-to-b from-white/20 to-white/10
-                backdrop-blur-2xl
-                border border-white/30 border-b-white/40
-                shadow-[0_1px_2px_rgba(255,255,255,0.2)]
-                text-white font-medium
-                transition-all duration-300
-                relative overflow-hidden
-                group
-                `}
-            >
-                {/* Inner Glow */}
-                <div className={`
-                absolute inset-0 rounded-full
-                bg-gradient-to-r from-transparent via-white/20 to-transparent
-                opacity-0 group-hover:opacity-40
-                transition-opacity duration-300
-                pointer-events-none
-                `}></div>
-                Weather
-            </motion.button>
-        )}
+      <div className="z-20 fixed rounded-full m-2 flex bottom-0 right-0 p-1 lg:hidden space-x-2">
+        <motion.button 
+            onClick={() => setActiveTab("result")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`
+            flex items-center justify-center 
+            px-4 py-1 rounded-full
+            bg-gradient-to-b from-white/20 to-white/10
+            backdrop-blur-2xl
+            border border-white/30 border-b-white/40
+            shadow-[0_1px_2px_rgba(255,255,255,0.2)]
+            text-white font-medium
+            transition-all duration-300
+            relative overflow-hidden
+            group
+            ${activeTab === 'result' ? 'opacity-100' : 'opacity-70 hover:opacity-100'}
+            `}
+        >
+            {/* Inner Glow */}
+            <div className={`
+            absolute inset-0 rounded-full
+            bg-gradient-to-r from-transparent via-white/20 to-transparent
+            opacity-0 group-hover:opacity-40
+            transition-opacity duration-300
+            pointer-events-none
+            `}></div>
+            Weather
+        </motion.button>
+
+        <motion.button 
+            onClick={() => setActiveTab("map")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`
+            flex items-center justify-center 
+            px-4 py-1 rounded-full
+            bg-gradient-to-b from-white/20 to-white/10
+            backdrop-blur-2xl
+            border border-white/30 border-b-white/40
+            shadow-[0_1px_2px_rgba(255,255,255,0.2)]
+            text-white font-medium
+            transition-all duration-300
+            relative overflow-hidden
+            group
+            ${activeTab === 'map' ? 'opacity-100' : 'opacity-70 hover:opacity-100'}
+            `}
+        >
+            {/* Inner Glow */}
+            <div className={`
+            absolute inset-0 rounded-full
+            bg-gradient-to-r from-transparent via-white/20 to-transparent
+            opacity-0 group-hover:opacity-40
+            transition-opacity duration-300
+            pointer-events-none
+            `}></div>
+            Map
+        </motion.button>
       </div>
+
+      {/* Floating Chatbot Bubble */}
+      <AnimatePresence>
+        {isChatbotOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, x: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, x: 50, scale: 0.8 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-24 right-4 z-50 w-full max-w-sm lg:max-w-md"
+          >
+            <WeatherChatbot />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Chatbot Toggle Button */}
+      <motion.button
+        onClick={() => setIsChatbotOpen(!isChatbotOpen)}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className={`
+          fixed bottom-4 left-4 z-50 p-4 pr-6 rounded-full
+          bg-black/70 text-white shadow-lg
+          hover:bg-black/90
+          transition-all duration-300
+          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+          border border-white/20
+          flex items-center space-x-2
+          lg:left-auto lg:right-4
+        `}
+      >
+        {isChatbotOpen ? (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        )}
+        {!isChatbotOpen && <span className="text-sm font-medium">Weather AI</span>}
+      </motion.button>
     </div>
   )
 }

@@ -31,7 +31,7 @@ export default function DailyForecast({ data, textColor, isLoading }) {
           <CalendarIcon textColor={textColor} />
           5-Day Forecast
         </h3>
-        <div className="space-y-4">
+        <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10">
           {data.map((day, index) => {
             const date = new Date(day.date);
             const dateStr = date.toLocaleDateString("en-US", {

@@ -1,4 +1,12 @@
 export default function CurrentWeather({ data, textColor, baseColor, isLoading = false }) {
+    if (!data || !data.current || !data.location) {
+        return (
+            <div className="text-center py-12 text-white">
+                No weather data available
+            </div>
+        )
+    }
+
     const { current, location } = data
   
     if (isLoading) {
@@ -32,7 +40,7 @@ export default function CurrentWeather({ data, textColor, baseColor, isLoading =
         )
     }
 
-    const Name = location.name.split('').map((letter, index) => (
+    const Name = location?.name?.split('').map((letter, index) => (
         <span 
             key={index} 
             className="font-bold font-sans inline-block wave-animation"
@@ -40,7 +48,7 @@ export default function CurrentWeather({ data, textColor, baseColor, isLoading =
         >
             {letter === ' ' ? '\u00A0' : letter}
         </span>
-    ))  
+    )) || location?.name || 'Unknown Location'
   
     return (
       <div className="text-white rounded-xl transition-shadow duration-300">
@@ -68,23 +76,23 @@ export default function CurrentWeather({ data, textColor, baseColor, isLoading =
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="space-y-2">
             <h2 className={`text-3xl font-bold ${textColor} flex items-center gap-2 drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)]`}>
-                <div>{Name || location.name}</div>
+                <div>{Name}</div>
                 <span className={`whitespace-nowrap text-sm font-normal ${textColor}/70 bg-white/20 px-2 py-1 rounded-full drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]`}>
-                    {location.country}
+                    {location?.country || 'Unknown Country'}
                 </span>
             </h2>
-            <p className={`${textColor}/60`}>{location.localtime}</p>
+            <p className={`${textColor}/60`}>{location?.localtime || 'Time not available'}</p>
           </div>
           <div className="flex items-center gap-4">
             <img
-              src={current.condition.icon.replace('64x64', '128x128')}
-              alt={current.condition.text}
+              src={current?.condition?.icon?.replace('64x64', '128x128') || '/weather-icon.png'}
+              alt={current?.condition?.text || 'Weather condition'}
               className="w-20 h-20 object-contain"
             />
             <div className="text-right drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)]">
-              <div className={`text-5xl font-bold ${textColor}`}>{current.temp_c} °C</div>
-              <p className={`${textColor}/70`}>{current.condition.text}</p>
-              <p className={`text-sm ${textColor}/60`}>Feels like {current.feelslike_c} °C</p>
+              <div className={`text-5xl font-bold ${textColor}`}>{current?.temp_c || '--'} °C</div>
+              <p className={`${textColor}/70`}>{current?.condition?.text || 'Condition not available'}</p>
+              <p className={`text-sm ${textColor}/60`}>Feels like {current?.feelslike_c || '--'} °C</p>
             </div>
           </div>
         </div>
@@ -93,29 +101,29 @@ export default function CurrentWeather({ data, textColor, baseColor, isLoading =
           <WeatherStat
             icon={<HumidityIcon />}
             label="Humidity"
-            value={`${current.humidity}%`}
+            value={`${current?.humidity || '--'}%`}
             textColor={textColor}
             baseColor={baseColor}
           />
           <WeatherStat
             icon={<WindIcon />}
             label="Wind"
-            value={`${current.wind_kph} km/h`}
-            subtext={current.wind_dir}
+            value={`${current?.wind_kph || '--'} km/h`}
+            subtext={current?.wind_dir}
             textColor={textColor}
             baseColor={baseColor}
           />
           <WeatherStat
             icon={<PressureIcon />}
             label="Pressure"
-            value={`${current.pressure_mb} mb`}
+            value={`${current?.pressure_mb || '--'} mb`}
             textColor={textColor}
             baseColor={baseColor}
           />
           <WeatherStat
             icon={<VisibilityIcon />}
             label="Visibility"
-            value={`${current.vis_km} km`}
+            value={`${current?.vis_km || '--'} km`}
             textColor={textColor}
             baseColor={baseColor}
           />

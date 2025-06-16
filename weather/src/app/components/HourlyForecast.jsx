@@ -1,6 +1,4 @@
 export default function HourlyForecast({ data, textColor, isLoading }) {
-  const currentHour = new Date().getHours();
-  const next12Hours = data.slice(currentHour, currentHour + 12);
   if (isLoading) {
     return (
       <div className={`bg-white/5 rounded-xl p-6 border ${textColor}/30 shadow-md`}>
@@ -25,25 +23,35 @@ export default function HourlyForecast({ data, textColor, isLoading }) {
     )
   }
 
+  // Filter out past hours for the current day, and include all hours for future days
+  const currentHour = new Date().getHours();
+  const relevantHourlyData = data.filter(hour => {
+    const hourDate = new Date(hour.time);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    hourDate.setHours(0, 0, 0, 0);
+
+    if (hourDate.getTime() === today.getTime()) {
+      // For today, only show current hour and future hours
+      return new Date(hour.time).getHours() >= currentHour;
+    } else {
+      // For future days, show all hours
+      return true;
+    }
+  });
+
   return (
     <div className={`shadow-xl shadow-[inset_0_1px_10px_rgba(255,255,255,0.2)] text-white bg-white/5 rounded-xl p-6 ${textColor}/30 transition-shadow duration-300`}>
       <h3 className={`text-xl font-semibold ${textColor} mb-6 flex items-center gap-2`}>
         <ClockIcon textColor={textColor} />
         Hourly Forecast
       </h3>
-      <div className={`flex md:grid
-          ${next12Hours.length == 1 && 'grid-cols-1'}
-          ${next12Hours.length == 2 && 'grid-cols-2'}
-          ${next12Hours.length == 3 && 'grid-cols-3'}
-          ${next12Hours.length == 4 && 'grid-cols-4'}
-          ${next12Hours.length == 5 && 'grid-cols-5'}
-          ${next12Hours.length >= 6 && 'grid-cols-6'}
-          overflow-x-auto pb-4 gap-4 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10`}>
-        {next12Hours.map((hour, index) => (
+      <div className={`flex overflow-x-auto pb-4 gap-4 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10`}>
+        {relevantHourlyData.map((hour, index) => (
           <div
           key={index}
           className={`
-            relative flex-none w-26 md:w-full text-center p-3 rounded-lg 
+            relative flex-none w-26 text-center p-3 rounded-lg 
             bg-white/5 hover:bg-white/10 transition-all duration-300 
             backdrop-blur-lg overflow-hidden
             border-t border-b border-transparent
@@ -74,7 +82,7 @@ export default function HourlyForecast({ data, textColor, isLoading }) {
         
           {/* Content */}
           <div className={`text-sm font-medium ${textColor}/70`}>
-            {hour.time.split(' ')[1]}
+            {new Date(hour.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </div>
           <img
             src={hour.condition.icon.replace('64x64', '128x128')}
