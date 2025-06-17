@@ -12,7 +12,12 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  display: none; /* Hide scrollbar for Webkit browsers */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
 ::-webkit-scrollbar-track {
@@ -27,26 +32,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.596); /* Hover color */
 }
-
-/* Custom scrollbar styles */
-*::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-* {
-  scrollbar-width: none;
-  /* For Firefox */
-}
-
-/* Hide scrollbar for IE, Edge and Safari */
-* {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
