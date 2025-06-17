@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import aiBotAction from '@/serverActions/aiBot';
+import { aiBotAction } from '@/serverActions/aiBot';
 
 export default function AiBotComp() {
   const [searchQuery, setSearchQuery] = useState('');
