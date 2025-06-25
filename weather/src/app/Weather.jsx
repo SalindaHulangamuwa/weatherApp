@@ -107,6 +107,95 @@ export default function Weather() {
     <>
     <div className="min-h-screen relative overflow-hidden" style={backgroundImageStyle}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-0" />
+      
+      {/* Animated Weather Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Rain Animation */}
+        {weatherCategory === 'rainy' && (
+          <div className="rain-container">
+            {[...Array(50)].map((_, i) => (
+              <div
+                key={i}
+                className="rain-drop"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 2}s`,
+                  animationDuration: `${0.5 + Math.random() * 0.5}s`
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Snow Animation */}
+        {weatherCategory === 'snowy' && (
+          <div className="snow-container">
+            {[...Array(30)].map((_, i) => (
+              <div
+                key={i}
+                className="snowflake"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${3 + Math.random() * 2}s`
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Cloud Animation */}
+        {(weatherCategory === 'cloudy' || weatherCategory === 'foggy') && (
+          <div className="cloud-container">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="cloud"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${20 + Math.random() * 60}%`,
+                  animationDelay: `${Math.random() * 10}s`,
+                  animationDuration: `${20 + Math.random() * 10}s`
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Sun Rays Animation */}
+        {weatherCategory === 'sunny' && (
+          <div className="sun-container">
+            <div className="sun-circle" />
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="sun-ray"
+                style={{
+                  transform: `rotate(${i * 30}deg)`,
+                  animationDelay: `${i * 0.1}s`
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Lightning Animation */}
+        {weatherCategory === 'stormy' && (
+          <div className="lightning-container">
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="lightning"
+                style={{
+                  left: `${20 + i * 30}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${2 + Math.random() * 3}s`
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="relative z-10">
         <main className="container mx-auto px-4 h-screen w-full flex flex-col justify-center">

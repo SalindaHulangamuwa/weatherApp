@@ -16,6 +16,9 @@ export default function MapView({ currentLocation, setCurrentLocation }) {
           attribution: '© OpenStreetMap contributors'
         }).addTo(mapRef.current)
 
+        // Add initial marker
+        markerRef.current = L.marker([currentLocation.lat, currentLocation.lon]).addTo(mapRef.current);
+
         mapRef.current.on('click', (e) => {
           const { lat, lng } = e.latlng;
           if (markerRef.current) {
@@ -39,6 +42,22 @@ export default function MapView({ currentLocation, setCurrentLocation }) {
       }
     }
   }, [])
+
+  // Effect to update marker and center map when currentLocation changes
+  useEffect(() => {
+    if (mapRef.current && markerRef.current && currentLocation) {
+      const L = require('leaflet');
+      
+      // Move marker to new location
+      markerRef.current.setLatLng([currentLocation.lat, currentLocation.lon]);
+      
+      // Center map on new location with smooth animation
+      mapRef.current.setView([currentLocation.lat, currentLocation.lon], 10, {
+        animate: true,
+        duration: 1
+      });
+    }
+  }, [currentLocation]);
 
   return (
     <div className="relative h-full mt-6">
