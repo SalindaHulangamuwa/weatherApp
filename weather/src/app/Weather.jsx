@@ -28,7 +28,7 @@ export default function Weather() {
     rainy: "https://media.istockphoto.com/id/512218646/photo/storm-sky-rain.jpg?s=612x612&w=0&k=20&c=RoUDM9BMwqW8NkPXjzAzlDKCHPOmdZhmmeT3jGA2EaM=",
     stormy: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzGVAji_hWtARRGW2a0KB4-e_5xBVToipA3A&s",
     cloudy: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr3ja_bhI-Kvy75688Mlu1FUdNRc1Pji4-Kg&s",
-    sunny: "https://images.unsplash.com/photo-1572966101025-e199cab72196",
+    sunny: "https://t3.ftcdn.net/jpg/01/94/32/00/360_F_194320004_EU6JSJyDnjE5Q9chEDMRJzNXrU0KD06I.jpg",
     snowy: "https://images.unsplash.com/photo-1491403865995-cda9c458c314",
     foggy: "https://images.unsplash.com/photo-1524435497396-7bc897fa8d97",
     unknown: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBWqPGoRiQ0Q5kmb1UDwi161IpVnoqyJo-XQ&s"
