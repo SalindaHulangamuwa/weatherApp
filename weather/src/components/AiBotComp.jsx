@@ -48,6 +48,16 @@ export default function AiBotComp() {
 
   return (
     <div className="w-full h-full flex flex-col bg-black/40 backdrop-blur-sm rounded-2xl shadow-xl p-4">
+      {/* Header with chat bubble icon and title */}
+      <div className="flex items-center mb-4 pb-3 border-b border-gray-600/30">
+        <div className="w-8 h-8 bg-blue-500/80 rounded-full flex items-center justify-center mr-3">
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+          </svg>
+        </div>
+        <h2 className="text-lg font-semibold text-white/90">Weather AI</h2>
+      </div>
+
       <div className="flex-1 min-h-0 overflow-y-auto mb-4">
         {chatHistory.length === 0 && (
           <div className="text-center text-gray-400/60 mb-4">
@@ -73,19 +83,19 @@ export default function AiBotComp() {
         )}
       </div>
 
-      <div className="flex-none">
+      <div className="flex-none flex flex-row gap-2">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Ask about the weather..."
-          className="w-3/5 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500/30 focus:border-transparent bg-black/30 text-gray-100/90 placeholder-gray-400/50 inline-block mr-2"
+          className="flex-1 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500/30 focus:border-transparent bg-black/30 text-gray-100/90 placeholder-gray-400/50"
         />
         <button
           onClick={handleSearch}
           disabled={isLoading || !searchQuery.trim()}
-          className="px-6 py-2 bg-black/50 text-white/90 rounded-lg hover:bg-black/40 focus:outline-none focus:ring-2 focus:ring-gray-500/30 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow inline-block"
+          className="px-6 py-2 bg-black/50 text-white/90 rounded-lg hover:bg-black/40 focus:outline-none focus:ring-2 focus:ring-gray-500/30 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow"
         >
           {isLoading ? 'Sending...' : 'Send'}
         </button>
