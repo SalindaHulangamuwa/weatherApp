@@ -85,7 +85,7 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
     <motion.div 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex gap-3 items-center text-white"
+      className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-center text-white"
     >
       {/* Glass Input Field */}
       <motion.div className="flex-1 relative">
@@ -95,7 +95,7 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
           placeholder="Enter city or location"
           defaultValue={currentLocation.name}
           className={`
-            w-full px-4 py-3 rounded-xl 
+            w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl 
             bg-transparent
             backdrop-blur-2xl
             border border-white/20
@@ -104,6 +104,7 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
             shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]
             transition-all duration-300
             z-10 relative
+            text-sm sm:text-base
           `}
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
@@ -125,7 +126,7 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={`
-          px-4 py-3 rounded-xl 
+          px-3 sm:px-4 py-2 sm:py-3 rounded-xl 
           bg-gradient-to-b from-white/20 to-white/10
           backdrop-blur-2xl
           border border-white/30 border-b-white/40
@@ -146,16 +147,16 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
         `}></div>
         
         {/* Button Content */}
-        <div className="flex items-center gap-2 relative z-10">
+        <div className="flex items-center justify-center gap-1 sm:gap-2 relative z-10">
           {isSearching ? (
             <>
-              <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
+              <svg className="animate-spin h-3 w-3 sm:h-4 sm:w-4 text-white" viewBox="0 0 24 24">
                 <path d="M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22ZM2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor"/>
               </svg>
-              <span>Searching</span>
+              <span className="text-xs sm:text-sm">Searching</span>
             </>
           ) : (
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#eeeeff">
+            <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="#eeeeff">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           )}
@@ -168,7 +169,7 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={`
-          px-4 py-3 rounded-xl 
+          px-3 sm:px-4 py-2 sm:py-3 rounded-xl 
           bg-gradient-to-b from-white/20 to-white/10
           backdrop-blur-2xl
           border border-white/30 border-b-white/40
@@ -189,16 +190,16 @@ export default function SearchBar({ currentLocation, setCurrentLocation, setWeat
         `}></div>
         
         {/* Button Content */}
-        <div className="flex items-center gap-2 relative z-10">
+        <div className="flex items-center justify-center gap-1 sm:gap-2 relative z-10">
           {isLocating ? (
             <>
-              <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
+              <svg className="animate-spin h-3 w-3 sm:h-4 sm:w-4 text-white" viewBox="0 0 24 24">
                 <path d="M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22ZM2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor"/>
               </svg>
-              <span>Locating</span>
+              <span className="text-xs sm:text-sm">Locating</span>
             </>
           ) : (
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#eeeeff">
+            <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="#eeeeff">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>

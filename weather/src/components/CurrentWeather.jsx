@@ -73,31 +73,31 @@ export default function CurrentWeather({ data, textColor, baseColor, isLoading =
                 animation: jump 3s ease-in-out infinite;
             }
         `}</style>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
           <div className="space-y-2">
-            <h2 className={`text-3xl font-bold ${textColor} flex items-center gap-2 drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)]`}>
-                <div>{Name}</div>
-                <span className={`whitespace-nowrap text-sm font-normal ${textColor}/70 bg-white/20 px-2 py-1 rounded-full drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]`}>
+            <h2 className={`text-2xl sm:text-3xl font-bold ${textColor} flex flex-col sm:flex-row sm:items-center gap-2 drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)]`}>
+                <div className="break-words">{Name}</div>
+                <span className={`whitespace-nowrap text-xs sm:text-sm font-normal ${textColor}/70 bg-white/20 px-2 py-1 rounded-full drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]`}>
                     {location?.country || 'Unknown Country'}
                 </span>
             </h2>
-            <p className={`${textColor}/60`}>{location?.localtime || 'Time not available'}</p>
+            <p className={`text-sm sm:text-base ${textColor}/60`}>{location?.localtime || 'Time not available'}</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-center sm:justify-end gap-3 sm:gap-4">
             <img
               src={current?.condition?.icon?.replace('64x64', '128x128') || '/weather-icon.png'}
               alt={current?.condition?.text || 'Weather condition'}
-              className="w-20 h-20 object-contain"
+              className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
             />
-            <div className="text-right drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)]">
-              <div className={`text-5xl font-bold ${textColor}`}>{current?.temp_c || '--'} °C</div>
-              <p className={`${textColor}/70`}>{current?.condition?.text || 'Condition not available'}</p>
-              <p className={`text-sm ${textColor}/60`}>Feels like {current?.feelslike_c || '--'} °C</p>
+            <div className="text-center sm:text-right drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)]">
+              <div className={`text-4xl sm:text-5xl font-bold ${textColor}`}>{current?.temp_c || '--'} °C</div>
+              <p className={`text-sm sm:text-base ${textColor}/70`}>{current?.condition?.text || 'Condition not available'}</p>
+              <p className={`text-xs sm:text-sm ${textColor}/60`}>Feels like {current?.feelslike_c || '--'} °C</p>
             </div>
           </div>
         </div>
   
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           <WeatherStat
             icon={<HumidityIcon />}
             label="Humidity"
@@ -135,7 +135,7 @@ export default function CurrentWeather({ data, textColor, baseColor, isLoading =
 function WeatherStat({ icon, label, value, subtext, textColor, baseColor }) {
     return (
       <div className={`
-        relative p-4 rounded-xl overflow-hidden
+        relative p-3 sm:p-4 rounded-xl overflow-hidden
         bg-white/5 backdrop-blur-lg
         transition-all duration-300
         group hover:bg-white/10
@@ -177,11 +177,11 @@ function WeatherStat({ icon, label, value, subtext, textColor, baseColor }) {
         <div className={`relative z-10 ${textColor} mb-2 group-hover:scale-110 transform transition-transform duration-200`}>
           {icon}
         </div>
-        <div className={`relative z-10 text-sm ${textColor}/70 flex gap-2`}>
-          {label} 
-          {subtext && <div className={`text-xs ${textColor}/40`}>({subtext})</div>}
+        <div className={`relative z-10 text-xs sm:text-sm ${textColor}/70 flex flex-col sm:flex-row sm:gap-2`}>
+          <span>{label}</span>
+          {subtext && <span className={`text-xs ${textColor}/40`}>({subtext})</span>}
         </div>
-        <div className={`relative z-10 font-semibold ${textColor} text-lg`}>{value}</div>
+        <div className={`relative z-10 font-semibold ${textColor} text-base sm:text-lg`}>{value}</div>
         
         {/* Subtle outer glow */}
         <div className={`

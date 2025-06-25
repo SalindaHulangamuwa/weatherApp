@@ -198,23 +198,23 @@ export default function Weather() {
       </div>
 
       <div className="relative z-10">
-        <main className="container mx-auto px-4 h-screen w-full flex flex-col justify-center">
-          <h1 className={`border-4 rounded-full mb-3 mt-2 ${baseColor.border} ${baseColor.shadow}`}></h1>
+        <main className="container mx-auto px-2 sm:px-4 h-screen w-full flex flex-col justify-center">
+          <h1 className={`border-4 rounded-full mb-2 sm:mb-3 mt-1 sm:mt-2 ${baseColor.border} ${baseColor.shadow}`}></h1>
           <motion.div
-            className={`h-[94vh] overflow-hidden w-full rounded-2xl bg-white/0`}
+            className={`h-[92vh] sm:h-[94vh] overflow-hidden w-full rounded-xl sm:rounded-2xl bg-white/0`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <div className={`flex flex-col lg:flex-row ${baseColor.divide}`}>
               {activeTab === "result" && (
-                <div className="lg:w-3/5 py-6 px-1 md:px-6 max-h-[93vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+                <div className="lg:w-3/5 py-3 sm:py-6 px-2 sm:px-4 md:px-6 max-h-[90vh] sm:max-h-[93vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
                     <WeatherDisplay weatherData={weatherData} textColor={"text-white"} baseColor={baseColor} isLoading={isLoading} />
                 </div>
               )}
 
-              <div className={`lg:w-2/5 px-1 md:px-6 pt-4 flex-col h-[91vh] ${activeTab === "map" ? 'flex' : 'hidden'} md:flex`}>
-                <h2 className={`${"text-white"} text-lg font-semibold mb-4 mt-2`}>Select Location</h2>
+              <div className={`lg:w-2/5 px-2 sm:px-4 md:px-6 pt-2 sm:pt-4 flex-col h-[88vh] sm:h-[91vh] ${activeTab === "map" ? 'flex' : 'hidden'} lg:flex`}>
+                <h2 className={`${"text-white"} text-base sm:text-lg font-semibold mb-2 sm:mb-4 mt-1 sm:mt-2`}>Select Location</h2>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -250,12 +250,12 @@ export default function Weather() {
                 whileTap={{ scale: 0.95 }}
                 className={`
                 flex items-center justify-center 
-                px-4 py-1 mx-1 rounded-full
+                px-3 sm:px-4 py-1 mx-1 rounded-full
                 bg-gradient-to-b from-white/20 to-white/10
                 backdrop-blur-2xl
                 border border-white/30 border-b-white/40
                 shadow-[0_1px_2px_rgba(255,255,255,0.2)]
-                text-white font-medium
+                text-white text-sm sm:text-base font-medium
                 transition-all duration-300
                 relative overflow-hidden
                 group
@@ -278,12 +278,12 @@ export default function Weather() {
                 whileTap={{ scale: 0.95 }}
                 className={`
                 flex items-center justify-center 
-                px-4 py-1 mx-1 rounded-full
+                px-3 sm:px-4 py-1 mx-1 rounded-full
                 bg-gradient-to-b from-white/20 to-white/10
                 backdrop-blur-2xl
                 border border-white/30 border-b-white/40
                 shadow-[0_1px_2px_rgba(255,255,255,0.2)]
-                text-white font-medium
+                text-white text-sm sm:text-base font-medium
                 transition-all duration-300
                 relative overflow-hidden
                 group

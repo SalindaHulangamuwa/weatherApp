@@ -26,8 +26,8 @@ export default function HourlyForecast({ data, textColor, isLoading }) {
   }
 
   return (
-    <div className={`shadow-xl shadow-[inset_0_1px_10px_rgba(255,255,255,0.2)] text-white bg-white/5 rounded-xl p-6 ${textColor}/30 transition-shadow duration-300`}>
-      <h3 className={`text-xl font-semibold ${textColor} mb-6 flex items-center gap-2`}>
+    <div className={`shadow-xl shadow-[inset_0_1px_10px_rgba(255,255,255,0.2)] text-white bg-white/5 rounded-xl p-4 sm:p-6 ${textColor}/30 transition-shadow duration-300`}>
+      <h3 className={`text-lg sm:text-xl font-semibold ${textColor} mb-4 sm:mb-6 flex items-center gap-2`}>
         <ClockIcon textColor={textColor} />
         Hourly Forecast
       </h3>
@@ -38,12 +38,12 @@ export default function HourlyForecast({ data, textColor, isLoading }) {
           ${next12Hours.length == 4 && 'grid-cols-4'}
           ${next12Hours.length == 5 && 'grid-cols-5'}
           ${next12Hours.length >= 6 && 'grid-cols-6'}
-          overflow-x-auto pb-4 gap-4 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10`}>
+          overflow-x-auto pb-4 gap-3 sm:gap-4 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10`}>
         {next12Hours.map((hour, index) => (
           <div
           key={index}
           className={`
-            relative flex-none w-26 md:w-full text-center p-3 rounded-lg 
+            relative flex-none w-20 sm:w-26 md:w-full text-center p-2 sm:p-3 rounded-lg 
             bg-white/5 hover:bg-white/10 transition-all duration-300 
             backdrop-blur-lg overflow-hidden
             border-t border-b border-transparent
@@ -73,15 +73,15 @@ export default function HourlyForecast({ data, textColor, isLoading }) {
           `}></div>
         
           {/* Content */}
-          <div className={`text-sm font-medium ${textColor}/70`}>
+          <div className={`text-xs sm:text-sm font-medium ${textColor}/70`}>
             {hour.time.split(' ')[1]}
           </div>
           <img
             src={hour.condition.icon.replace('64x64', '128x128')}
             alt={hour.condition.text}
-            className="w-12 h-12 mx-auto my-2 drop-shadow-lg"
+            className="w-8 h-8 sm:w-12 sm:h-12 mx-auto my-1 sm:my-2 drop-shadow-lg"
           />
-          <div className={`font-semibold ${textColor} text-lg`}>
+          <div className={`font-semibold ${textColor} text-base sm:text-lg`}>
             {hour.temp_c}°C
           </div>
           <div className={`text-xs ${textColor}/60 mt-1 truncate`}>
