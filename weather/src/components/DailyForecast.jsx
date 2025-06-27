@@ -29,7 +29,7 @@ export default function DailyForecast({ data, textColor, isLoading }) {
       <div className={`shadow-xl shadow-[inset_0_1px_10px_rgba(255,255,255,0.2)] text-white bg-white/5 rounded-xl p-4 sm:p-6 ${textColor}/30 transition-shadow duration-300`}>
         <h3 className={`text-lg sm:text-xl font-semibold ${textColor} mb-4 sm:mb-6 flex items-center gap-2`}>
           <CalendarIcon textColor={textColor} />
-          5-Day Forecast
+          Days Forecast
         </h3>
         <div className="space-y-3 sm:space-y-4 max-h-[220px] sm:max-h-[300px] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10">
           {data.map((day, index) => {
