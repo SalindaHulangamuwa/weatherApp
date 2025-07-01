@@ -14,7 +14,7 @@ export default function ChatBubble() {
     <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 lg:left-auto lg:right-6 z-50">
       <button
         onClick={toggleChat}
-        className="bg-black/90 backdrop-blur-sm text-white rounded-full p-3 sm:p-4 shadow-lg hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-gray-500/50 focus:ring-offset-2 flex items-center gap-1 sm:gap-2"
+        className="bg-white text-gray-900 rounded-full p-3 sm:p-4 shadow-[0_0_16px_4px_rgba(255,255,255,0.8)] drop-shadow-[0_0_12px_rgba(255,255,255,0.9)] hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 flex items-center gap-1 sm:gap-2 transition-colors"
       >
         {isOpen ? (
           <>
