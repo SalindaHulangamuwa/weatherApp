@@ -53,7 +53,7 @@ export default function ChatBubble({ weatherCategory = 'unknown' }) {
     <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 lg:left-auto lg:right-6 z-50">
       <button
         onClick={toggleChat}
-        className={`${color.bg} ${color.text} rounded-full p-3 sm:p-4 ${color.shadow} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 flex items-center gap-1 sm:gap-2 transition-colors`}
+        className={`${color.bg} ${color.text} rounded-full p-3 sm:p-4 ${color.shadow} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 flex items-center gap-1 sm:gap-2 transition-colors animate-neon-glow`}
         style={{ animation: 'neon-glow 1.8s infinite alternate' }}
       >
         {isOpen ? (
@@ -110,7 +110,7 @@ export default function ChatBubble({ weatherCategory = 'unknown' }) {
           }
           50% {
             box-shadow: 0 0 32px 12px rgba(255,255,255,0.7), 0 0 48px 16px rgba(0,0,0,0.1);
-            filter: brightness(1.15);
+            filter: brightness(1);
           }
         }
       `}</style>
