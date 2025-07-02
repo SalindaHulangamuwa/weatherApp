@@ -3,8 +3,47 @@
 import { useState } from 'react';
 import AiBotComp from './AiBotComp';
 
-export default function ChatBubble() {
+const weatherColors = {
+  rainy: {
+    bg: 'bg-cyan-500',
+    shadow: 'shadow-[0_0_16px_4px_rgba(147,197,253,0.8)]',
+    text: 'text-blue-100',
+  },
+  stormy: {
+    bg: 'bg-purple-400',
+    shadow: 'shadow-[0_0_16px_4px_rgba(216,180,254,0.8)]',
+    text: 'text-purple-100',
+  },
+  cloudy: {
+    bg: 'bg-gray-100',
+    shadow: 'shadow-[0_0_16px_4px_rgba(209,213,219,0.8)]',
+    text: 'text-gray-700',
+  },
+  sunny: {
+    bg: 'bg-amber-400',
+    shadow: 'shadow-[0_0_16px_4px_rgba(252,211,77,0.8)]',
+    text: 'text-amber-100',
+  },
+  snowy: {
+    bg: 'bg-cyan-400',
+    shadow: 'shadow-[0_0_16px_4px_rgba(165,243,252,0.8)]',
+    text: 'text-cyan-100',
+  },
+  foggy: {
+    bg: 'bg-slate-400',
+    shadow: 'shadow-[0_0_16px_4px_rgba(203,213,225,0.8)]',
+    text: 'text-slate-100',
+  },
+  unknown: {
+    bg: 'bg-amber-400',
+    shadow: 'shadow-[0_0_16px_4px_rgba(254,215,170,0.8)]',
+    text: 'text-amber-100',
+  },
+};
+
+export default function ChatBubble({ weatherCategory = 'unknown' }) {
   const [isOpen, setIsOpen] = useState(false);
+  const color = weatherColors[weatherCategory] || weatherColors.unknown;
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -14,7 +53,8 @@ export default function ChatBubble() {
     <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 lg:left-auto lg:right-6 z-50">
       <button
         onClick={toggleChat}
-        className="bg-white text-gray-900 rounded-full p-3 sm:p-4 shadow-[0_0_16px_4px_rgba(255,255,255,0.8)] drop-shadow-[0_0_12px_rgba(255,255,255,0.9)] hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 flex items-center gap-1 sm:gap-2 transition-colors"
+        className={`${color.bg} ${color.text} rounded-full p-3 sm:p-4 ${color.shadow} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 flex items-center gap-1 sm:gap-2 transition-colors`}
+        style={{ animation: 'neon-glow 1.8s infinite alternate' }}
       >
         {isOpen ? (
           <>
@@ -62,6 +102,18 @@ export default function ChatBubble() {
           </div>
         </div>
       )}
+      <style jsx>{`
+        @keyframes neon-glow {
+          0%, 100% {
+            box-shadow: 0 0 16px 4px rgba(255,255,255,0.2), 0 0 32px 8px rgba(0,0,0,0.05);
+            filter: brightness(1);
+          }
+          50% {
+            box-shadow: 0 0 32px 12px rgba(255,255,255,0.7), 0 0 48px 16px rgba(0,0,0,0.1);
+            filter: brightness(1.15);
+          }
+        }
+      `}</style>
     </div>
   );
 } 

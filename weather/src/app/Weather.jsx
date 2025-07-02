@@ -6,7 +6,7 @@ import SearchBar from '../components/SearchBar'
 import WeatherDisplay from '../components/WeatherDisplay'
 import MapView from '../components/MapView'
 
-export default function Weather() {
+export default function Weather({ setWeatherCategory }) {
   const [currentLocation, setCurrentLocation] = useState({
     name: "Colombo, Sri Lanka",
     lat: 6.9271,
@@ -14,7 +14,7 @@ export default function Weather() {
   })
 
   const [weatherData, setWeatherData] = useState(null);
-  const [weatherCategory, setWeatherCategory] = useState('unknown');
+  const [weatherCategoryState, setWeatherCategoryState] = useState('unknown');
   const [mounted, setMounted] = useState(false);
   const [baseColor, setBaseColor] = useState({
     border: 'border-amber-200/70',
@@ -87,8 +87,9 @@ export default function Weather() {
     if (weatherData?.current?.condition?.text) {
       const rawDescription = weatherData.current.condition.text;
       const category = getWeatherCategory(rawDescription);
-      setWeatherCategory(category);
+      setWeatherCategoryState(category);
       setBaseColor(weatherColors[category]);
+      if (setWeatherCategory) setWeatherCategory(category);
     }
   }, [weatherData])
 
@@ -96,7 +97,7 @@ export default function Weather() {
 
   const backgroundImageStyle = mounted
     ? {
-        backgroundImage: `url(${bg[weatherCategory]})`,
+        backgroundImage: `url(${bg[weatherCategoryState]})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
@@ -111,7 +112,7 @@ export default function Weather() {
       {/* Animated Weather Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Rain Animation */}
-        {weatherCategory === 'rainy' && (
+        {weatherCategoryState === 'rainy' && (
           <div className="rain-container">
             {[...Array(50)].map((_, i) => (
               <div
@@ -128,7 +129,7 @@ export default function Weather() {
         )}
 
         {/* Snow Animation */}
-        {weatherCategory === 'snowy' && (
+        {weatherCategoryState === 'snowy' && (
           <div className="snow-container">
             {[...Array(30)].map((_, i) => (
               <div
@@ -145,7 +146,7 @@ export default function Weather() {
         )}
 
         {/* Cloud Animation */}
-        {(weatherCategory === 'cloudy' || weatherCategory === 'foggy') && (
+        {(weatherCategoryState === 'cloudy' || weatherCategoryState === 'foggy') && (
           <div className="cloud-container">
             {[...Array(8)].map((_, i) => (
               <div
@@ -163,7 +164,7 @@ export default function Weather() {
         )}
 
         {/* Sun Rays Animation */}
-        {weatherCategory === 'sunny' && (
+        {weatherCategoryState === 'sunny' && (
           <div className="sun-container">
             <div className="sun-circle" />
             {[...Array(12)].map((_, i) => (
@@ -180,7 +181,7 @@ export default function Weather() {
         )}
 
         {/* Lightning Animation */}
-        {weatherCategory === 'stormy' && (
+        {weatherCategoryState === 'stormy' && (
           <div className="lightning-container">
             {[...Array(3)].map((_, i) => (
               <div
